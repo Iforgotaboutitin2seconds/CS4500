@@ -15,7 +15,7 @@ typedef struct List
 list *create_list();
 
 // create a node and copy string from item into it, use malloc, strlen and strncpy.(or strdup).
-// add new node at the end of list ll, return 0 if successful, non-zero otherwise.
+// add this node at the end of list ll, return 0 if successful, non-zero otherwise.
 int add_to_list(list *ll, char *item);
 
 // remove head of list ll, extracts the string in the head and return a pointer to this strirng.
