@@ -1,5 +1,6 @@
 #include "list.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 // create a list with head point to NULL and return it, if failed return NULL

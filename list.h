@@ -1,3 +1,6 @@
+#ifndef LIST_H
+#define LIST_H
+
 typedef struct Node node;
 
 struct Node
@@ -30,3 +33,5 @@ void flush_list(list *ll);
 
 //clears the entire list and free memory of it
 void free_list(list *ll);
+
+#endif // LIST_H
