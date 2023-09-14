@@ -3,6 +3,7 @@
     "files.associations": {
         "*.cpp": "cpp",
         "stdio.h": "c",
-        "list.h": "c"
+        "list.h": "c",
+        "string.h": "c"
     }
 }
