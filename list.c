@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// create a list with head point to NULL and return it, if failed return NULL
+// create a list with head to NULL and return it, if failed return NULL
 list *create_list()
 {
     // create list pointer ll and allocate memory size of list
@@ -23,33 +23,55 @@ list *create_list()
 // add this node at the end of list ll, return 0 if successful, non-zero otherwise.
 int add_to_list(list *ll, char *item)
 {
-    // check if list and item exist
-    if (ll && item)
+
+    // check if head exist
+    if (ll->head)
     {
         // create a temp node to go through the list
         node *temp = ll->head;
 
-        // as long as there is next node
-        while (temp->next)
+        // as long as the node is not NULL
+        while (temp != NULL && temp->next != NULL)
         {
+
             // go to next node
             temp = temp->next;
         }
 
         // create a new node pointer n1 and allocate memory size of node
-        node *last = malloc(sizeof(node));
+        node *last = (node *)malloc(sizeof(node));
 
-        // add new as last node to the list
-        temp->next = last;
+        // allocate space into the node's item
+        last->item = (char *)malloc(strlen(item) + 1);
 
         // copy the item into the last node's item
-        strncpy(last->item, item, strlen(item));
+        strncpy(last->item, item, strlen(item) + 1);
 
-        // check if the item is actually there
         if (last->item)
         {
+            temp->next = last;
+            last->next = NULL;
             return 0;
         }
+
+        return 1;
+    }
+
+    // create a new node pointer n1 and allocate memory size of node
+    node *last = (node *)malloc(sizeof(node));
+
+    // allocate space into the node's item
+    last->item = (char *)malloc(strlen(item) + 1);
+
+    // copy the item into the last node's item
+    strncpy(last->item, item, strlen(item) + 1);
+
+    // check if the item is actually there
+    if (last->item)
+    {
+        ll->head = last;
+        last->next = NULL;
+        return 0;
     }
 
     return 1;
@@ -72,9 +94,6 @@ char *remove_from_list(list *ll)
     // make the next node head
     ll->head = ll->head->next;
 
-    // free the old head
-    free(temp);
-
     return string;
 }
 
@@ -85,7 +104,7 @@ void print_list(list *ll)
     node *temp = ll->head;
 
     // as long as temp has next node
-    while (temp->next)
+    while (temp)
     {
 
         printf("%s\n", temp->item);
@@ -99,8 +118,8 @@ void flush_list(list *ll)
     // create a temp node to free all the node
     node *temp = ll->head;
 
-    // as long as more node
-    while (!ll->head->next)
+    // as long as head is not NULL
+    while (ll->head != NULL)
     {
 
         // make temp as old head
@@ -127,7 +146,7 @@ void free_list(list *ll)
     node *temp = ll->head;
 
     // as long as more node
-    while (!ll->head->next)
+    while (ll->head)
     {
 
         // make temp as old head
@@ -140,6 +159,6 @@ void free_list(list *ll)
         free(temp);
     }
 
-    // free the last node
-    free(ll->head);
+    // free the list ll
+    free(ll);
 }

@@ -28,10 +28,10 @@ char *remove_from_list(list *ll);
 // print every string in each node, with a new line after each string
 void print_list(list *ll);
 
-//clears the entire list and remake it, the pointer ll should still point to a list that is empty. free the memory.
+// clears the entire list and remake it, the pointer ll should still point to a list that is empty. free the memory.
 void flush_list(list *ll);
 
-//clears the entire list and free memory of it
+// clears the entire list and free memory of it
 void free_list(list *ll);
 
 #endif // LIST_H
