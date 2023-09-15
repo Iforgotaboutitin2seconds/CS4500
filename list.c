@@ -89,7 +89,7 @@ char *remove_from_list(list *ll)
     node *temp = ll->head;
 
     // copy the string from the head into the string pointer
-    strncpy(string, ll->head->item, strlen(ll->head->item));
+    strncpy(string, ll->head->item, strlen(ll->head->item) + 1);
 
     // make the next node head
     ll->head = ll->head->next;
@@ -146,7 +146,7 @@ void free_list(list *ll)
     node *temp = ll->head;
 
     // as long as more node
-    while (ll->head)
+    while (ll->head != NULL)
     {
 
         // make temp as old head
