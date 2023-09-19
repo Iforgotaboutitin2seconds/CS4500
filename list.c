@@ -9,7 +9,7 @@ list *create_list()
     // create list pointer ll and allocate memory size of list
     list *ll = malloc(sizeof(list));
 
-    if (ll)
+    if (ll != NULL)
     {
         // assign ll's head to NULL
         ll->head = NULL;
