@@ -14,7 +14,9 @@ int main()
     test = add_to_list(ll, "item1");
     printf("%d\n", test);
     test = add_to_list(ll, "item2");
+    printf("%d\n", test);
     test = add_to_list(ll, "item3");
+    printf("%d\n", test);
 
     // remove the head and get the item from it
     removedString = remove_from_list(ll);
@@ -27,13 +29,16 @@ int main()
     flush_list(ll);
     if (ll)
     {
-        printf("List ll exist");
+        printf("List ll exist\n");
     }
 
     // add more item to the list
-    add_to_list(ll, "item1");
-    add_to_list(ll, "item2");
-    add_to_list(ll, "item3");
+    test = add_to_list(ll, "item1");
+    printf("%d\n", test);
+    test = add_to_list(ll, "item2");
+    printf("%d\n", test);
+    test = add_to_list(ll, "item3");
+    printf("%d\n", test);
 
     // clear the list
     free_list(ll);
