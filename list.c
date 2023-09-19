@@ -64,7 +64,7 @@ char *remove_from_list(list *ll)
 {
 
     // create a empty string pointer to hold the string
-    char *string;
+    char *string = malloc(sizeof(ll->head->item));
 
     // create a temp node that hold the old head node to be deleted and free
     node *temp = ll->head;
@@ -74,6 +74,8 @@ char *remove_from_list(list *ll)
 
     // make the next node head
     ll->head = ll->head->next;
+
+    free(temp);
 
     return string;
 }
