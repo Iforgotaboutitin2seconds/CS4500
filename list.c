@@ -103,8 +103,8 @@ void print_list(list *ll)
     // create a temp node to go through the list
     node *temp = ll->head;
 
-    // as long as temp has next node
-    while (temp)
+    // as long as temp is not NULL
+    while (temp != NULL)
     {
 
         printf("%s\n", temp->item);
@@ -135,7 +135,7 @@ void flush_list(list *ll)
     // free the last node
     free(ll->head);
 
-    // create a new list for ll
+    // create a new list or rather a new head for ll
     ll = create_list();
 }
 
