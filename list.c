@@ -24,33 +24,36 @@ list *create_list()
 int add_to_list(list *ll, char *item)
 {
 
+    if (ll->head == NULL)
+    {
+        node *temp = (node *)malloc(sizeof(node));
+        temp->item = (char *)malloc(sizeof(item));
+        temp->next = NULL;
+        strncpy(temp->item, item, strlen(item) + 1);
+        ll->head = temp;
+        return 0;
+    }
+
     // create a temp node to go through the list
     node *temp = ll->head;
 
     // as long as the node is not NULL
-    while (temp != NULL)
+    while (temp->next != NULL)
     {
         // go to next node
         temp = temp->next;
     }
 
-    // create a new node pointer n1 and allocate memory size of node
-    node *last = (node *)malloc(sizeof(node));
+    temp->next = (node *)malloc(sizeof(node));
+    temp = temp->next;
+    temp->next = NULL;
+    temp->item = (char *)malloc(sizeof(item));
 
     // copy the item into the last node's item
-    strncpy(last->item, item, strlen(item) + 1);
+    strncpy(temp->item, item, strlen(item) + 1);
 
-    if (last->item)
-    {
-        if (ll->head == NULL)
-        {
-            ll->head = last;
-            return 0;
-        }
-        temp->next = last;
-        last->next = NULL;
+    if (temp->item)
         return 0;
-    }
 
     return 1;
 }
@@ -71,9 +74,6 @@ char *remove_from_list(list *ll)
 
     // make the next node head
     ll->head = ll->head->next;
-
-    // free the old head
-    free(temp);
 
     return string;
 }
