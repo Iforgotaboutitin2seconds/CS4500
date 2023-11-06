@@ -1,0 +1,62 @@
+#include <pthread.h>
+#include <stdio.h>
+#include <string.h>
+
+#define NUM_THREADS 4
+
+char s1[1000], s2[100];
+int total = 0;
+pthread_mutex_t lock;
+
+/**
+ * This function counts the number of occurrences of s2 in s1.
+ * It is executed by each thread created in the main function.
+ * 
+ * @param arg an integer representing the starting index for the thread to search in s1
+ * @return NULL
+ */
+void *count_substrings(void *arg) {
+    int start = (int)arg;
+    int count = 0;
+    int len2 = strlen(s2);
+    for (int i = start; i <= strlen(s1) - len2; i += NUM_THREADS) {
+        if (strncmp(&s1[i], s2, len2) == 0) {
+            count++;
+        }
+    }
+    pthread_mutex_lock(&lock);
+    total += count;
+    pthread_mutex_unlock(&lock);
+    return NULL;
+}
+
+/**
+ * This is the main function of the program.
+ * It reads two strings from a file, creates multiple threads to count the number of occurrences of the second string in the first string,
+ * and prints the total number of occurrences.
+ * 
+ * @return 0
+ */
+int main() {
+    FILE *file = fopen("string.txt", "r");
+    fscanf(file, "%s", s1);
+    fscanf(file, "%s", s2);
+    fclose(file);
+
+    pthread_t threads[NUM_THREADS];
+    pthread_mutex_init(&lock, NULL);
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_create(&threads[i], NULL, count_substrings, (void*)i);
+    }
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    pthread_mutex_destroy(&lock);
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}

@@ -4,6 +4,7 @@
         "*.cpp": "cpp",
         "stdio.h": "c",
         "list.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "task1": "c"
     }
 }
