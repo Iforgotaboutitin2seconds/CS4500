@@ -1,6 +1,17 @@
+/**
+ * This program reads two strings from a file named "strings.txt" and counts the number of occurrences of the second string in the first string using multiple threads.
+ * 
+ * The program creates NUM_THREADS threads, each of which executes the count_substrings function with a different starting index for the search.
+ * The count_substrings function counts the number of occurrences of s2 in s1 for the given starting index and adds the count to the global variable total, which is protected by a mutex.
+ * 
+ * The main function initializes the mutex, creates the threads, waits for them to finish, destroys the mutex, and prints the total count.
+ * 
+ * @file Task1.c
+ */
 #include <pthread.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h> // add this line for intptr_t
 
 #define NUM_THREADS 4
 
@@ -12,11 +23,10 @@ pthread_mutex_t lock;
  * This function counts the number of occurrences of s2 in s1.
  * It is executed by each thread created in the main function.
  * 
- * @param arg an integer representing the starting index for the thread to search in s1
- * @return NULL
+ * @param arg an integer representing the starting index for the thread
  */
 void *count_substrings(void *arg) {
-    int start = (int)arg;
+    intptr_t start = (intptr_t)arg; // change type to intptr_t
     int count = 0;
     int len2 = strlen(s2);
     for (int i = start; i <= strlen(s1) - len2; i += NUM_THREADS) {
@@ -30,15 +40,8 @@ void *count_substrings(void *arg) {
     return NULL;
 }
 
-/**
- * This is the main function of the program.
- * It reads two strings from a file, creates multiple threads to count the number of occurrences of the second string in the first string,
- * and prints the total number of occurrences.
- * 
- * @return 0
- */
 int main() {
-    FILE *file = fopen("string.txt", "r");
+    FILE *file = fopen("strings.txt", "r");
     fscanf(file, "%s", s1);
     fscanf(file, "%s", s2);
     fclose(file);
@@ -46,7 +49,7 @@ int main() {
     pthread_t threads[NUM_THREADS];
     pthread_mutex_init(&lock, NULL);
 
-    for (int i = 0; i < NUM_THREADS; i++) {
+    for (intptr_t i = 0; i < NUM_THREADS; i++) { // change type to intptr_t
         pthread_create(&threads[i], NULL, count_substrings, (void*)i);
     }
 

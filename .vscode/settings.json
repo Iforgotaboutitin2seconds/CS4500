@@ -5,6 +5,8 @@
         "stdio.h": "c",
         "list.h": "c",
         "string.h": "c",
-        "task1": "c"
+        "task1": "c",
+        "stdlib.h": "c",
+        "param.h": "c"
     }
 }
