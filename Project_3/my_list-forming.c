@@ -119,8 +119,6 @@ int main(int argc, char *argv[])
     struct Node *tmp, *next;
     struct timeval starttime, endtime;
 
-    memory_pool = (struct Node *)malloc(num_threads * K * sizeof(struct Node));
-
     if (argc == 1)
     {
         printf("ERROR: please provide an input arg (the number of threads)\n");
@@ -128,6 +126,7 @@ int main(int argc, char *argv[])
     }
 
     num_threads = atoi(argv[1]); // read num_threads from user
+    memory_pool = (struct Node *)malloc(num_threads * K * sizeof(struct Node));
     pthread_t producer[num_threads];
     NUM_PROCS = sysconf(_SC_NPROCESSORS_CONF); // get number of CPU
     if (NUM_PROCS > 0)
