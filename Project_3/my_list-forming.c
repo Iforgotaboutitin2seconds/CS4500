@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
     int NUM_PROCS; // number of CPU
     int *cpu_array = NULL;
 
-    struct Node *tmp, *next;
+    struct Node *tmp, *next, *memory_pool_start;
     struct timeval starttime, endtime;
 
     if (argc == 1)
@@ -127,6 +127,7 @@ int main(int argc, char *argv[])
 
     num_threads = atoi(argv[1]); // read num_threads from user
     memory_pool = (struct Node *)malloc(num_threads * K * sizeof(struct Node));
+    memory_pool_start = memory_pool;
     pthread_t producer[num_threads];
     NUM_PROCS = sysconf(_SC_NPROCESSORS_CONF); // get number of CPU
     if (NUM_PROCS > 0)
@@ -170,16 +171,8 @@ int main(int argc, char *argv[])
 
     gettimeofday(&endtime, NULL); // get the finish time
 
-    if (List->header != NULL)
-    {
-        next = tmp = List->header;
-        while (tmp != NULL)
-        {
-            next = tmp->next;
-            free(tmp);
-            tmp = next;
-        }
-    }
+    if (memory_pool_start != NULL)
+        free(memory_pool_start);
     if (cpu_array != NULL)
         free(cpu_array);
     /* calculate program runtime */
