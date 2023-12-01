@@ -51,5 +51,5 @@ module_init(va_space_init);
 module_exit(va_space_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
+MODULE_AUTHOR("Kenyou Teoh");
 MODULE_DESCRIPTION("Virtual Address Space Size Module");

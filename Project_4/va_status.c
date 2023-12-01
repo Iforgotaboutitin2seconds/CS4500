@@ -75,5 +75,5 @@ module_init(va_status_init);
 module_exit(va_status_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
+MODULE_AUTHOR("Kenyou Teoh");
 MODULE_DESCRIPTION("Page Table Walk Module");
